@@ -29,15 +29,9 @@
     }
   },
   "include": [
-    "server.ts",
-    "vite-plugin-purge-comments/**/*.ts",
-    "vite-plugin-vuero-doc/**/*.ts",
+    "vite-plugin/**/*.ts",
+    "server/**/*.ts",
     "types/**/*.d.ts",
-    "auto-imports.d.ts",
-    "typed-router.d.ts",
-    "build-ssg.ts",
-    "components.d.ts",
-    "components-global.d.ts",
     "src/**/*.js",
     "src/**/*.ts",
     "src/**/*.vue",

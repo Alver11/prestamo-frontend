@@ -1,5 +1,6 @@
-module.exports = {
-  extends: ['stylelint-config-standard', 'stylelint-config-recommended-vue'],
+/** @type {import('stylelint').Config} */
+export default {
+  extends: ['stylelint-config-standard', 'stylelint-config-recommended-vue/scss'],
   customSyntax: 'postcss-scss',
   plugins: ['stylelint-scss'],
   overrides: [
@@ -35,7 +36,6 @@ module.exports = {
     ],
 
     /** Vuejs **/
-    'value-keyword-case': null,
     'custom-property-empty-line-before': null,
     'selector-pseudo-element-no-unknown': [
       true,

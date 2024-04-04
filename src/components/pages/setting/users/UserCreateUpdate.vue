@@ -16,14 +16,12 @@ const selectedFile = ref<File | null>(null)
 const imageDimensions = ref()
 const currentImageUrl = ref('')
 const tagsRoles = ref()
-const optionFunctionaries = ref([])
 interface RouteParams { id?: string }
 const params = route.params as RouteParams
 
 const getDataUpdate = async (idValue: string | RouteParamValue[]) => {
   try {
     await $fetch(`/users/${idValue}`).then(function (res) {
-      setFieldValue('people_id', res.people_id)
       setFieldValue('name', res.name)
       setFieldValue('email', res.email)
       setFieldValue('profile_path', res.profile_path)
@@ -84,7 +82,6 @@ const removeFile = (): void => {
 
 const validationSchema = toTypedSchema(
   zod.object({
-    people_id: number({ required_error: 'Seleccione un funcionario' }),
     name: string({
       required_error: 'Nombre de usuario no puede estar vacio',
     }).min(3, { message: 'El nombre debe contener como mínimo 3 letras' }),
@@ -130,7 +127,6 @@ const validationSchema = toTypedSchema(
 
 interface userForm {
   profile_path: string | null
-  people_id: number
   name: string | null
   email: string
   password: string
@@ -147,10 +143,6 @@ onMounted(async () => {
     tagsRoles.value = (await $fetch('roles')).map((role: any) => ({
       value: role.id,
       label: role.name,
-    }))
-    optionFunctionaries.value = (await $fetch('getPeopleToFunctionary')).map((result: any) => ({
-      value: result.id,
-      label: result.ci + ' - ' + result.name + ', ' + result.last_name,
     }))
     if (params.id) {
       await getDataUpdate(params.id)
@@ -311,25 +303,6 @@ const isStuck = computed(() => {
               />
             </div>
             <div class="column is-9">
-              <!-- --------------------- Responsable --------------------------- -->
-              <VField
-                id="people_id"
-                label="Funcionario"
-                class="is-autocomplete-select"
-              >
-                <VControl icon="feather:search">
-                  <VMultiselect
-                    :model-value="values.people_id"
-                    placeholder="Seleccione un responsable"
-                    :disabled="!!params.id"
-                    :close-on-select="true"
-                    :searchable="true"
-                    :options="optionFunctionaries"
-                    @input="setFieldValue('people_id', $event)"
-                  />
-                  <ErrorMessage class="help is-danger" name="people_id" />
-                </VControl>
-              </VField>
               <VField
                 id="name"
                 label="Nombre de usuario"

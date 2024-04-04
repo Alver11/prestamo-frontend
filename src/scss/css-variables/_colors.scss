@@ -4,7 +4,7 @@
   // layout colors
   --body-color: #f4f4f5;
   --title-grey: #a9abac;
-  --background-grey: #fafafa;
+  --background-grey: #f5f5f5;
   --medium-grey: #ddd;
   --light-grey: #eee;
   --white: #fff;
@@ -74,7 +74,7 @@
   @include colorHsl('danger', 341, 79%, 53%);
 
   // smoke-white HSL (#fcfcfc) // hsl(0, 0%, 99%)
-  @include colorHsl('smoke-white', 0, 0%, 99%);
+  @include colorHsl('smoke-white', 0, 0%, 85%);
 
   // placeholder HSL (#cecece) // hsl(0, 0%, 81%)
   @include colorHsl('placeholder', 0, 0%, 81%);
@@ -95,7 +95,8 @@
   @include colorHsl('dark-text', 226, 34%, 24%);
 
   // light-text HSL (#a2a5b9) // hsl(232, 14%, 68%)
-  @include colorHsl('light-text', 232, 14%, 68%);
+  //@include colorHsl('light-text', 232, 14%, 68%);
+  @include colorHsl('light-text', 107, 0%, 31%);
 
   // dark-sidebar HSL (#232326) // hsl(240, 4%, 14%)
   @include colorHsl('dark-sidebar', 240, 4%, 14%);

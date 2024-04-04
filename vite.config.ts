@@ -17,9 +17,8 @@ import UnheadVite from '@unhead/addons/vite'
 import { unheadVueComposablesImports } from '@unhead/vue'
 
 // local vite plugin
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const VitePluginVueroDoc = (options: any) => {}
-import { VitePluginPurgeComments } from './vite-plugin-purge-comments'
+import { VitePluginVueroDoc } from './vite-plugin/vuero-doc'
+import { VitePluginPurgeComments } from './vite-plugin/purge-comments'
 
 // options via env variables
 const MINIFY_IMAGES = process.env.MINIFY ? process.env.MINIFY === 'true' : false
@@ -47,13 +46,6 @@ export default defineConfig({
   server: {
     // Vite 4 defaults to 5173, but you can override it with the port option.
     port: 3000,
-  },
-  /**
-   * Define allow to replace string in the code at build time.
-   */
-  define: {
-    // VSCODE_TEXTMATE_DEBUG is used in shiki, but it's not defined in the browser
-    'process.env.VSCODE_TEXTMATE_DEBUG': 'false',
   },
   /**
    * By default, Vite will crawl your index.html to detect dependencies that
@@ -103,12 +95,13 @@ export default defineConfig({
       'vue-i18n',
       'vue-router',
       'unplugin-vue-router/runtime',
+      'scule',
       'simplebar',
       'tiny-slider/src/tiny-slider',
       'vue-accessible-color-picker',
       'zod',
-      '@stefanprobst/remark-shiki',
       'rehype-external-links',
+      'rehype-shikiji',
       'rehype-raw',
       'rehype-sanitize',
       'rehype-stringify',
@@ -117,7 +110,6 @@ export default defineConfig({
       'remark-gfm',
       'remark-parse',
       'remark-rehype',
-      'shiki',
       'unified',
       'workbox-window',
       'textarea-markdown-editor/dist/esm/bootstrap',
@@ -217,7 +209,7 @@ export default defineConfig({
       pathPrefix: 'documentation',
       wrapperComponent: 'DocumentationItem',
       shiki: {
-        theme: {
+        themes: {
           light: 'min-light',
           dark: 'github-dark',
         },
@@ -288,10 +280,10 @@ export default defineConfig({
     !process.env.GTM_ID
       ? undefined
       : VitePluginRadar({
-          gtm: {
-            id: process.env.GTM_ID,
-          },
-        }),
+        gtm: {
+          id: process.env.GTM_ID,
+        },
+      }),
 
     /**
      * vite-plugin-pwa generate manifest.json and register services worker to enable PWA
@@ -408,32 +400,32 @@ export default defineConfig({
     !MINIFY_IMAGES
       ? undefined
       : ImageMin({
-          gifsicle: {
-            optimizationLevel: 7,
-            interlaced: false,
-          },
-          optipng: {
-            optimizationLevel: 7,
-          },
-          mozjpeg: {
-            quality: 60,
-          },
-          pngquant: {
-            quality: [0.8, 0.9],
-            speed: 4,
-          },
-          svgo: {
-            plugins: [
-              {
-                name: 'removeViewBox',
-                active: false,
-              },
-              {
-                name: 'removeEmptyAttrs',
-                active: false,
-              },
-            ],
-          },
-        }),
+        gifsicle: {
+          optimizationLevel: 7,
+          interlaced: false,
+        },
+        optipng: {
+          optimizationLevel: 7,
+        },
+        mozjpeg: {
+          quality: 60,
+        },
+        pngquant: {
+          quality: [0.8, 0.9],
+          speed: 4,
+        },
+        svgo: {
+          plugins: [
+            {
+              name: 'removeViewBox',
+              active: false,
+            },
+            {
+              name: 'removeEmptyAttrs',
+              active: false,
+            },
+          ],
+        },
+      }),
   ],
 })

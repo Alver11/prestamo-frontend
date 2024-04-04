@@ -25,8 +25,6 @@ const columns = [
     },
   },
   { data: 'name', title: 'Nombre de Usuario', typeSearch: 'input' },
-  { data: 'people.name', title: 'Nombre', typeSearch: 'input' },
-  { data: 'people.last_name', title: 'Apellido', typeSearch: 'input' },
   { data: 'email', title: 'Correo Electrónico', typeSearch: 'input' },
   {
     data: 'roles',

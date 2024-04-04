@@ -19,7 +19,7 @@ import 'datatables.net-buttons/js/buttons.print'
 import 'datatables.net-buttons/js/buttons.colVis'
 import 'https://bartaz.github.io/sandbox.js/jquery.highlight.js'
 
-import logo from '/@src/assets/illustrations/logo/logo_indi.png'
+import logo from '/@src/assets/illustrations/logo/Orue LOGO.png'
 import { useNotyf } from '/@src/composable/useNotyf'
 import pdfMake from 'pdfmake/build/pdfmake'
 import Vfs_fonts from 'pdfmake/build/vfs_fonts'

@@ -1,12 +1,35 @@
 <script setup lang="ts">
 import { useUserSession } from '/@src/stores/userSession'
+import { useNotyf } from '/@src/composable/useNotyf'
+import { useLaravelError } from '/@src/composable/useLaravelError'
+import { useFetch } from '/@src/composable/useFetch'
 
 const userSession = useUserSession()
+const $fetch = useFetch()
 const router = useRouter()
+const notify = useNotyf()
+const isLoading = ref(false)
 
-function logout() {
-  userSession.logoutUser()
-  router.push('/')
+const name = userSession.user!.name
+const email = userSession.user!.email
+const profile = import.meta.env.VITE_API_BASE_URL + '/storage/' + userSession.user!.profile_path
+async function logout() {
+  if (!isLoading.value) {
+    isLoading.value = true
+
+    try {
+      await $fetch('logout', { method: 'POST'}).then(function () {
+        userSession.logoutUser()
+        router.push('/')
+      })
+    }
+    catch (err: any) {
+      notify.error(useLaravelError(err))
+    }
+    finally {
+      isLoading.value = false
+    }
+  }
 }
 </script>
 
@@ -25,7 +48,7 @@ function logout() {
         @keydown.space.prevent="toggle"
         @click="toggle"
       >
-        <VAvatar picture="/images/avatars/svg/vuero-1.svg" />
+        <VAvatar :picture="profile ?? '/images/avatars/svg/vuero-1.svg'" />
       </a>
     </template>
 
@@ -33,88 +56,14 @@ function logout() {
       <div class="dropdown-head">
         <VAvatar
           size="large"
-          picture="/images/avatars/svg/vuero-1.svg"
+          :picture="profile ?? '/images/avatars/svg/vuero-1.svg'"
         />
 
         <div class="meta">
-          <span>Erik Kovalsky</span>
-          <span>Product Manager</span>
+          <span>{{ name }}</span>
+          <span>{{ email }}</span>
         </div>
       </div>
-
-      <a
-        href="#"
-        role="menuitem"
-        class="dropdown-item is-media"
-      >
-        <div class="icon">
-          <i
-            aria-hidden="true"
-            class="lnil lnil-user-alt"
-          />
-        </div>
-        <div class="meta">
-          <span>Profile</span>
-          <span>View your profile</span>
-        </div>
-      </a>
-
-      <hr class="dropdown-divider">
-
-      <a
-        href="#"
-        role="menuitem"
-        class="dropdown-item is-media"
-      >
-        <div class="icon">
-          <i
-            aria-hidden="true"
-            class="lnil lnil-briefcase"
-          />
-        </div>
-        <div class="meta">
-          <span>Projects</span>
-          <span>All my projects</span>
-        </div>
-      </a>
-
-      <a
-        href="#"
-        role="menuitem"
-        class="dropdown-item is-media"
-      >
-        <div class="icon">
-          <i
-            aria-hidden="true"
-            class="lnil lnil-users-alt"
-          />
-        </div>
-        <div class="meta">
-          <span>Team</span>
-          <span>Manage your team</span>
-        </div>
-      </a>
-
-      <hr class="dropdown-divider">
-
-      <a
-        href="#"
-        role="menuitem"
-        class="dropdown-item is-media"
-      >
-        <div class="icon">
-          <i
-            aria-hidden="true"
-            class="lnil lnil-cog"
-          />
-        </div>
-        <div class="meta">
-          <span>Settings</span>
-          <span>Account settings</span>
-        </div>
-      </a>
-
-      <hr class="dropdown-divider">
 
       <div class="dropdown-item is-button">
         <VButton
@@ -126,7 +75,7 @@ function logout() {
           fullwidth
           @click="logout"
         >
-          Logout
+          Cerrar Sesión
         </VButton>
       </div>
     </template>
