@@ -262,3 +262,14 @@ watch(
     </VViewWrapper>
   </div>
 </template>
+<style lang="scss">
+.dropdown.is-right .dropdown-menu {
+  left: 20px !important;
+  right: auto;
+}
+.dropdown {
+  width: 80px;
+  justify-content: center;
+  height: 50px;
+}
+</style>

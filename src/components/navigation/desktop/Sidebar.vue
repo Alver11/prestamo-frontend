@@ -71,7 +71,7 @@ const themeClasses = computed(() => {
   margin-inline-start: 0;
   height: 100vh;
   width: 80px;
-  background-color: var(--body-color);
+  background-color: var(--primary-grey-light-6);
   box-shadow: none;
   z-index: 35;
   transition:
@@ -434,7 +434,7 @@ const themeClasses = computed(() => {
 
       .profile-dropdown {
         .dropdown-menu {
-          bottom: 0;
+          // bottom: 0;
           inset-inline-start: 145%;
 
           .dropdown-content {
