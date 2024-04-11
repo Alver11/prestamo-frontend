@@ -46,6 +46,11 @@ export default defineConfig({
   server: {
     // Vite 4 defaults to 5173, but you can override it with the port option.
     port: 3000,
+    cors: {
+      origin: ['http://apiorue.walabi.com.py'],
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+      // headers: ['Content-Type', 'Authorization'],
+    },
   },
   /**
    * By default, Vite will crawl your index.html to detect dependencies that
