@@ -1,4 +1,4 @@
-/* import { useFetch } from '/@src/composable/useFetch'
+import { useFetch } from '/@src/composable/useFetch'
 import { useUserSession } from '/@src/stores/userSession'
 
 export async function authenticateUser(route: string, body: object) {
@@ -11,9 +11,8 @@ export async function authenticateUser(route: string, body: object) {
   const user = await $fetch('user')
   userSession.setUser(user)
 }
- */
 
-import { useApi } from '/@src/composable/useApi'
+/* import { useApi } from '/@src/composable/useApi'
 import { useUserSession } from '/@src/stores/userSession'
 
 export async function authenticateUser(route: string, body: object) {
@@ -27,4 +26,4 @@ export async function authenticateUser(route: string, body: object) {
 
   const { data: user } = await api.get('user')
   userSession.setUser(user)
-}
+} */
