@@ -10,8 +10,6 @@ export function useFetch() {
       if (userSession.isLoggedIn) {
         options.headers = {
           ...options.headers,
-          credentials: 'include',
-          mode: 'cors',
           Authorization: `Bearer ${userSession.token}`,
         }
       }
