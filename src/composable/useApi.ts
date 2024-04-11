@@ -8,6 +8,7 @@ export function createApi() {
   api = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL + '/api/v1/',
     withCredentials: true,
+    withXSRFToken: true,
     headers: {
       'Content-Type': 'application/json',
       'X-Requested-With': 'XMLHttpRequest',
@@ -29,7 +30,7 @@ export function createApi() {
     },
     (err) => {
       return Promise.reject(err)
-    }
+    },
   )
 
   return api
